@@ -9,10 +9,10 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'scrapper'
+BOT_NAME = 'scraper'
 
-SPIDER_MODULES = ['scrapper.spiders']
-NEWSPIDER_MODULE = 'scrapper.spiders'
+SPIDER_MODULES = ['scraper.spiders']
+NEWSPIDER_MODULE = 'scraper.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -47,7 +47,7 @@ COOKIES_ENABLED = True
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
-   'scrapper.middlewares.ScrapperSpiderMiddleware': 543,
+   'scraper.middlewares.ScrapperSpiderMiddleware': 543,
    'scrapy.spidermiddlewares.referer.RefererMiddleware': True,
 }
 
