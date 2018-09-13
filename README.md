@@ -13,9 +13,9 @@
 #### Installation:
 - Clone Repo
 - Go to project folder.
-		 > cd project_folder
+	> cd project_folder
 - Make a virtual environment
-		 > virtualenv -p `which python3.5` venv
+	> virtualenv venv
 - Activate environment
 	- (FOR MAC/LINUX)
 		> source venv/bin/activate
