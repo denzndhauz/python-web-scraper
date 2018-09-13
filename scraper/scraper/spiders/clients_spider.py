@@ -4,6 +4,7 @@ import requests
 import scrapy
 
 from scrapy.loader import ItemLoader
+from scraper.settings import USERNAME, PASSWORD
 from scraper.items import Client
 
 
@@ -14,8 +15,8 @@ class ClientSpider(scrapy.Spider):
     get_client_booking_url = 'https://business101.resurva.com/' +\
         '/index/client-profile'
 
-    login_user = 'edwin@baseup.co'
-    login_password = 'skudd1993'
+    login_user = USERNAME
+    login_password = PASSWORD
 
     def get_cookies(self):
         driver = webdriver.Chrome()
@@ -49,15 +50,15 @@ class ClientSpider(scrapy.Spider):
                     domain=cookie['domain'], path=cookie['path'])
 
         # Request users data
-        r = requests.get(self.get_client_booking_url,
-                         params={'id': user_ids[0]}, cookies=jar)
-        # data = r.json()
+        for user in user_ids:
+            r = requests.get(self.get_client_booking_url,
+                             params={'id': user}, cookies=jar)
+            data = r.json()
 
-        # client = ItemLoader(item=Client(), response=response)
-        # client.add_value('id', data['id'])
-        # client.add_value('first_name', data['first_name'])
-        # client.add_value('last_name', data['last_name'])
+            client = ItemLoader(item=Client(), response=response)
+            client.add_value('id', int(data['bookings'][0]['id']))
+            client.add_value('first_name', data['bookings'][0]['name'])
+            client.add_value('last_name', data['bookings'][0]['name'])
+            client.add_value('email', data['bookings'][0]['email'])
 
-        # return client.load_item()
-        self.logger.info(r.json())
-        return r.json()
+            yield client.load_item()

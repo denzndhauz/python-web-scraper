@@ -14,6 +14,10 @@ BOT_NAME = 'scraper'
 SPIDER_MODULES = ['scraper.spiders']
 NEWSPIDER_MODULE = 'scraper.spiders'
 
+# RESURVA USERNAME/EMAIL and PASSWORD
+USERNAME = 'demo@user.co'
+PASSWORD = 'demouser123'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scrapper (+http://www.yourdomain.com)'
