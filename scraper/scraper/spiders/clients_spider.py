@@ -6,6 +6,7 @@ import scrapy
 from scrapy.loader import ItemLoader
 from scraper.settings import USERNAME, PASSWORD
 from scraper.items import Client
+from nameparser import HumanName
 
 
 class ClientSpider(scrapy.Spider):
@@ -54,11 +55,13 @@ class ClientSpider(scrapy.Spider):
             r = requests.get(self.get_client_booking_url,
                              params={'id': user}, cookies=jar)
             data = r.json()
+            # Parse Full Name into parts
+            name = HumanName(data['bookings'][0]['name'])
 
             client = ItemLoader(item=Client(), response=response)
             client.add_value('id', int(data['bookings'][0]['id']))
-            client.add_value('first_name', data['bookings'][0]['name'])
-            client.add_value('last_name', data['bookings'][0]['name'])
+            client.add_value('first_name', name.first)
+            client.add_value('last_name', name.last)
             client.add_value('email', data['bookings'][0]['email'])
 
             yield client.load_item()
