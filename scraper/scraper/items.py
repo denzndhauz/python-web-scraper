@@ -13,3 +13,5 @@ class Client(scrapy.Item):
     first_name = scrapy.Field()
     last_name = scrapy.Field()
     email = scrapy.Field()
+    last_booking_date = scrapy.Field()
+    phone_number = scrapy.Field()
